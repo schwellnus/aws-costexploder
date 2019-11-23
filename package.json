@@ -1,0 +1,16 @@
+{
+  "name": "costexploder",
+  "version": "1.0.0",
+  "description": "explore aws costs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/webhook": "^5.0.2",
+    "aws-sdk": "^2.578.0",
+    "moment": "^2.24.0"
+  }
+}

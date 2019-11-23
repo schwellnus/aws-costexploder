@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export AWS_ACCESSKEY='<add aws accesskey here>'
+export AWS_SECRET_ACCESSKEY='<add aws secret access key here>'
+
+export SLACK_WEBHOOK_URL='<add slack webhook url here>'
+
+node index.js
