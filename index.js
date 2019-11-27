@@ -24,7 +24,7 @@ const { IncomingWebhook } = require('@slack/webhook');
 
 
 
-exports.handler =  async function(event, context) {
+exports.handler = function(event, context) {
   console.log('start: ' + moment().format('YYYY-MM-DD hh:mm:ss.SSS'));
 
   var aws_config = {
