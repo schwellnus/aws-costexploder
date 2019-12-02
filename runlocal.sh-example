@@ -7,4 +7,4 @@ export SLACK_WEBHOOK_URL='<add slack webhook url here>'
 
 export COSTEXPLODER_MSGPREFIX="add text to preceed the number-value here"
 
-node index.js
+node runlocal.js
