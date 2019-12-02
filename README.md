@@ -31,3 +31,10 @@ SLACK_WEBHOOK_URL='<add slack webhook url here>'
 ```
 
 To deploy manually, zip up index.js and node_modules/ and upload to lambda in the AWS console.
+
+
+To trigger automatically, use CloudWatch Events:
+
+Setup a cron like so:
+```cron(59 7,16 * * ? *)```
+to run the lambda at 7:59am UTC and 6:59pm UTC every day.
