@@ -30,6 +30,12 @@ AWS_SECRET_ACCESSKEY='<add aws secret access key here>'
 SLACK_WEBHOOK_URL='<add slack webhook url here>'
 ```
 
+and can take an optional
+
+```
+COSTEXPLODER_MSGPREFIX="<add the text to be displayed before the cost value here >"
+```
+
 To deploy manually, zip up index.js and node_modules/ and upload to lambda in the AWS console.
 
 
