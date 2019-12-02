@@ -2,25 +2,10 @@ const AWS = require('aws-sdk');
 const moment = require("moment");
 const { IncomingWebhook } = require('@slack/webhook');
 
-/*
 
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ce:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
-  ]
+const currencyRound=function(num) {
+  return Math.round(Number.parseFloat(num)*100)/100;
 }
-
-*/
-
 
 
 
@@ -60,6 +45,7 @@ exports.handler = function(event, context) {
   };
 
 
+  const messagePrefix = process.env.COSTEXPLODER_MSGPREFIX || false;
 
   awsCostExplorer.getCostForecast(params, function(err, data) {
     var returnval=0;
@@ -70,7 +56,8 @@ exports.handler = function(event, context) {
       console.log(data);           // successful response
       returnval=data.Total.Amount;
       //console.log(data.Total.Amount);
-      const textmessage = 'Cost estimate until end of the month: ' + data.Total.Amount;;
+
+      const textmessage = (messagePrefix || 'Cost estimate until end of the month: ') + data.Total.Unit + " " + currencyRound(data.Total.Amount);
       const webhook = new IncomingWebhook(slack_webhook_url);
       (async () => {
         await webhook.send({
