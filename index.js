@@ -29,6 +29,7 @@ exports.handler = function(event, context) {
 
   var monthFirst=moment(now).startOf('month').format('YYYY-MM-DD');
   var monthLast=moment(now).endOf('month').format('YYYY-MM-DD');
+  var monthNextFirst=moment(now).endOf('month').add(1,"d").format('YYYY-MM-DD');
   var monthTomorrow=moment(now).add(1,"day").format('YYYY-MM-DD');
   var monthToday=moment(now).format('YYYY-MM-DD');
 
@@ -41,7 +42,8 @@ exports.handler = function(event, context) {
     TimePeriod: { /* required */
       End: monthLast, /* required */
       Start: monthTomorrow /* required */
-    }
+    },
+    PredictionIntervalLevel: 51
   };
 
 
@@ -57,7 +59,15 @@ exports.handler = function(event, context) {
       returnval=data.Total.Amount;
       //console.log(data.Total.Amount);
 
-      const textmessage = (messagePrefix || 'Cost estimate until end of the month: ') + data.Total.Unit + " " + currencyRound(data.Total.Amount);
+      var textmessage = (messagePrefix || 'Cost estimate until end of the month: ') + "\n\rMean: " + data.Total.Unit + " " + currencyRound(data.Total.Amount);
+
+      if(data.ForecastResultsByTime && data.ForecastResultsByTime[0] && data.ForecastResultsByTime[0].PredictionIntervalLowerBound && data.ForecastResultsByTime[0].PredictionIntervalUpperBound) {
+        textmessage = textmessage + "\n\r";
+        textmessage = textmessage + "Min: " + data.Total.Unit + " " + currencyRound(data.ForecastResultsByTime[0].PredictionIntervalLowerBound);
+        textmessage = textmessage + "\n\r";
+        textmessage = textmessage + "Max: " + data.Total.Unit + " " + currencyRound(data.ForecastResultsByTime[0].PredictionIntervalUpperBound);
+      }
+
       const webhook = new IncomingWebhook(slack_webhook_url);
       (async () => {
         await webhook.send({
