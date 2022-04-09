@@ -11,6 +11,6 @@
   "dependencies": {
     "@slack/webhook": "^5.0.2",
     "aws-sdk": "^2.814.0",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   }
 }
